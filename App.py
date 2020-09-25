@@ -24,4 +24,8 @@ if __name__ == "__main__":
     sock.bind(('localhost', 0))
     port = sock.getsockname()[1]
     sock.close()
+<<<<<<< HEAD
     app.run(port=7000)
+=======
+    app.run(port=8000)
+>>>>>>> 50fd33b70b50c06df3bf71ed4ec23f1ccae88e66
