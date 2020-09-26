@@ -23,24 +23,26 @@ def evaluate_baby():
 def baby(numberOfBooks, numberOfDays, books, days):
     books.sort()
     days.sort()
-    sets = [] # where sets[i] will the set of weights that has i books or less
+    # set_= [] # where sets[i] will the set of weights that has i books or less
     weights = []
     weights.append(tuple(0 for _ in range(numberOfDays + 1)))
-    sets.append(weights)
+    # sets.append(weights)
     # print(weights)
     for i in range(numberOfBooks):
         new_set = []
-        for weight in sets[i]:
+        for weight in weights:
             for j in range(numberOfDays):
                 if weight[j] + books[i] <= days[j]:
                     new_weight = [*weight]
                     new_weight[j] += books[i]
                     new_weight[-1] += 1
                     new_set.append(tuple(new_weight))
-        sets.append(new_set)
+        if not new_set:
+            break
+        weights = new_set
         # print(new_set)
-    sets = [*filter(lambda x: x, sets)]
-    max_ = max(sets[-1], key=lambda x: x[-1])
+    # sets = [*filter(lambda x: x, sets)]
+    max_ = max(weights, key=lambda x: x[-1])
     return max_
         
 
