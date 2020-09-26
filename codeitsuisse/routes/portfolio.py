@@ -21,10 +21,25 @@ def evaluate_portfolio():
 
 def getOutput(input_dict):
     bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
+    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["FuturePrcVol"])
+    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: math.sqrt(input_dict["Portfolio"]["SpotPrcVol"]**2 + x["FuturePrcVol"]**2 + 2 *x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] *x["FuturePrcVol"]))
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
+    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"] / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
+    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
+    # print(bestIndex)
+    # print(input_dict["IndexFutures"])
     output = {"HedgePositionName": bestIndex["Name"]}
     optimalHedgeRatio = bestIndex["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / bestIndex["FuturePrcVol"]
     num = optimalHedgeRatio / bestIndex["Notional"] * input_dict["Portfolio"]["Value"] / bestIndex["IndexFuturePrice"]
-    output["OptimalHedgeRatio"] = math.ceil(optimalHedgeRatio * 1000)/1000
-    output["NumFuturesContract"] = math.ceil(num)
+    output["OptimalHedgeRatio"] = round_num(optimalHedgeRatio, 3)
+    output["NumFuturesContract"] = round_num(num)
     return output
+
+# def round_num(number, n = None):
+#     return round(number, n)
+
+def round_num(number, n = None):
+    if n:
+        return math.ceil(number * (10**n))/(10**n)
+    else: 
+        return math.ceil(number)
