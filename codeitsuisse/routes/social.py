@@ -19,7 +19,7 @@ def evaluate_social():
     return jsonify(result)
 
 def distancing(seats, people, spaces):
-    n = seats - (spaces * people) + 1
+    n = seats - (spaces * people) + spaces
     r = people
     if n<0 or r<0 or n-r<0:
         return 0
