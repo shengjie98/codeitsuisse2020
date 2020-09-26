@@ -4,6 +4,7 @@ import codeitsuisse.routes.saladspree
 import codeitsuisse.routes.revisit
 import codeitsuisse.routes.encrypt
 import codeitsuisse.routes.square
+import codeitsuisse.routes.social
 import codeitsuisse.routes.gene
 import codeitsuisse.routes.clean_floor
 import codeitsuisse.routes.baby
