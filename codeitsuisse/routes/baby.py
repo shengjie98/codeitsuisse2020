@@ -14,7 +14,10 @@ def evaluate_baby():
     books = data.get("books")
     days = data.get("days")
     potential = baby(books, days)
-    numBooks = len([x for x in potential[0] if x>=0])
+    if potential:
+        numBooks = len(max(potential, key=lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ])))
+    else:
+        numBooks = 0
     result = {"optimalNumberOfBooks": numBooks}
     logging.info("My result :{}".format(result))
     return jsonify(result)
@@ -43,6 +46,6 @@ def baby(books_left, time_left_per_day):
             with_book_i = [[i] + potential_arrangement for potential_arrangement in baby(books_left.copy(), [time_left if j!= i else time_left - book for j, time_left in enumerate(time_left_per_day)])]
             potential_arrangements.extend(with_book_i)
 
-    max_ = len(max(potential_arrangements, key=lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ])))
-    potential_arrangements = list(filter(lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ]) == max_, potential_arrangements))
+    # max_ = len(max(potential_arrangements, key=lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ])))
+    # potential_arrangements = list(filter(lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ]) == max_, potential_arrangements))
     return potential_arrangements
