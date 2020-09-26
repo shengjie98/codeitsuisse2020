@@ -12,9 +12,13 @@ logger = logging.getLogger(__name__)
 def evaluate_contact():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
-    result = contact(**data)
-    logging.info("My result :{}".format(result))
-    return result
+    infected = data.get("infected")
+    origin = data.get("origin")
+    cluster = data.get("cluster")
+
+    result = contact(infected, origin, cluster)
+    logging.info("My result :{}".format(str(result)))
+    return jsonify(result)
 
 
 def get_dist(gene1, gene2):
@@ -84,6 +88,7 @@ def contact(infected, origin, cluster):
             path_str += name
             path = path[1:]
         complete_paths[p] = path_str
+        
     return complete_paths
 
 
