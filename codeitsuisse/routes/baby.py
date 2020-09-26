@@ -13,11 +13,11 @@ def evaluate_baby():
     logging.info("data sent for evaluation {}".format(data))
     books = data.get("books")
     days = data.get("days")
+    books.sort()
+    days.sort(reverse = True)
+    
     potential = baby(books, days)
-    if potential:
-        numBooks = len(max(potential, key=lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ])))
-    else:
-        numBooks = 0
+    numBooks = len([x for x in potential[0] if x>=0])
     result = {"optimalNumberOfBooks": numBooks}
     logging.info("My result :{}".format(result))
     return jsonify(result)
@@ -32,6 +32,8 @@ def baby(books_left, time_left_per_day):
         for i, time in enumerate(time_left_per_day):
             if book < time:
                 potential_arrangements.append([i])
+            else:
+                break
         if potential_arrangements:
             return potential_arrangements
         return [[-1]]
@@ -45,7 +47,11 @@ def baby(books_left, time_left_per_day):
         if book < time:
             with_book_i = [[i] + potential_arrangement for potential_arrangement in baby(books_left.copy(), [time_left if j!= i else time_left - book for j, time_left in enumerate(time_left_per_day)])]
             potential_arrangements.extend(with_book_i)
-
-    # max_ = len(max(potential_arrangements, key=lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ])))
-    # potential_arrangements = list(filter(lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ]) == max_, potential_arrangements))
-    return potential_arrangements
+        else: 
+            break
+    if potential_arrangements:
+        max_ = len(max(potential_arrangements, key=lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ])))
+        potential_arrangements = list(filter(lambda potential_arrangement: len([x for x in potential_arrangement if x >=0 ]) == max_, potential_arrangements))
+        return potential_arrangements
+    else:
+        return []
