@@ -22,7 +22,7 @@ def evaluate_portfolio():
 def getOutput(input_dict):
     x_min = input_dict["IndexFutures"][0]
     for x in input_dict["IndexFutures"][1:]:
-        x_min = compare(x_min, x)
+        x_min = compare(x_min, x, input_dict)
     vol = x_min["FuturePrcVol"]
     HR = round_num(x_min["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x_min["FuturePrcVol"], 3)
     num = round_num(HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"])
@@ -34,7 +34,7 @@ def getOutput(input_dict):
     return output
         
 
-def compare(x1, x2):
+def compare(x1, x2, input_dict):
     vol1 = x1["FuturePrcVol"]
     HR1 = round_num(x1["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x1["FuturePrcVol"], 3)
     num1 = round_num(HR1 / x1["Notional"] * input_dict["Portfolio"]["Value"] / x1["IndexFuturePrice"])        
