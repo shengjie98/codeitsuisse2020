@@ -11,8 +11,10 @@ logger = logging.getLogger(__name__)
 def evaluateFruitBasket():
     data = request.get_json();
     logging.info("data sent for evaluation {}".format(data))
-    inputValue = data.get("input");
-    result = inputValue * inputValue
+    noBanana = data.get("maBanana");
+    noMelon = data.get("maWatermelon")
+    noApple = data.get("maApple")
+    result = noApple*10+noBanana*10+noMelon*10
     logging.info("My result :{}".format(result))
     return json.dumps(result);
 

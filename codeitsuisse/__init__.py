@@ -7,5 +7,6 @@ import codeitsuisse.routes.square
 import codeitsuisse.routes.gene
 import codeitsuisse.routes.clean_floor
 import codeitsuisse.routes.baby
+import codeitsuisse.routes.fruitbasket
 
 
