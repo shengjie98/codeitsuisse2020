@@ -21,33 +21,34 @@ def evaluate_portfolio():
 
 def getOutput(input_dict):
     x_min = input_dict["IndexFutures"][0]
-    x_min_HR = x_min["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x_min["FuturePrcVol"]
-    x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
+    x_min_HR = round_num(x_min["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x_min["FuturePrcVol"], 3)
+    x_min_num = round_num(x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"])
     for x in input_dict["IndexFutures"][1:]:
-        new_HR =  x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"]
-        if new_HR < x_min_HR:
+        if x["FuturePrcVol"] < x_min["FuturePrcVol"]:
+
+        # check vol
             x_min = x
-            x_min_HR = new_HR
-            x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
-            # change min
-        elif new_HR == x_min_HR:
-            # check vol
-            if x["FuturePrcVol"] < x_min["FuturePrcVol"]:
+            x_min_HR = round_num(x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"], 3)
+            x_min_num = round_num(x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"])
+        elif x["FuturePrcVol"] == x_min["FuturePrcVol"]:
+            new_HR =  round_num(x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"], 3)
+            if new_HR < x_min_HR:
                 x_min = x
-                x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
-            elif x["FuturePrcVol"] == x_min["FuturePrcVol"]:
+                x_min_HR = new_HR
+                x_min_num = round_num(x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"])
+                # change min
+            elif new_HR == x_min_HR:
                 #check num
-                new_x_num = x_min_HR / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"]
+                new_x_num = round_num(x_min_HR / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"])
                 if new_x_num < x_min_num:
                     x_min = x
                     x_min_num = new_x_num
     output = {
         "HedgePositionName" : x_min["Name"], 
-        "OptimalHedgeRatio" : round_num(x_min_HR, 3), 
-        "NumFuturesContract": round_num(x_min_num)
+        "OptimalHedgeRatio" : (x_min_HR), 
+        "NumFuturesContract": (x_min_num)
     }
     return output
-
 
 
 # def round_num(number, n = None):
