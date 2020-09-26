@@ -17,7 +17,7 @@ def evaluate_portfolio():
     outputs = [getOutput(input_dict) for input_dict in inputs]
     result = {"outputs": outputs}
     logging.info("My result :{}".format(result))
-    return jsonify(outputs)
+    return jsonify(result)
 
 def getOutput(input_dict):
     bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
