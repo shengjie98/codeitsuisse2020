@@ -21,7 +21,7 @@ def evaluate_inventory():
             "searchResult":[]}
         distances = [lev_mat(item_name, i) for i in inp["items"]]
         distances.sort()
-        output["searchResult"] = distances[:10]
+        output["searchResult"] = [i[1] for i in distances[:10]]
         outputs.append(output)
     logging.info("My result :{}".format(output))
     return jsonify(output)
