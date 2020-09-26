@@ -12,11 +12,11 @@ logger = logging.getLogger(__name__)
 @app.route('/salad-spree', methods=['POST'])
 def evaluateSalad():
     data = request.get_json()
-    logging.info("data sent for evaluation {}".format(data))
+    # logging.info("data sent for evaluation {}".format(data))
     numberOfSalads = data.get("number_of_salads")
     streetArray = data.get("salad_prices_street_map")
     result = saladSpree(numberOfSalads, streetArray)
-    logging.info("My result :{}".format(result))
+    # logging.info("My result :{}".format(result))
     return jsonify(result)
 
 def saladSpree(numberOfSalads, streetArray):
