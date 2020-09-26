@@ -1,6 +1,5 @@
 import logging
 import json
-import numpy as np
 
 from flask import request, jsonify
 
@@ -10,16 +9,19 @@ logger = logging.getLogger(__name__)
 
 
 @app.route('/salad-spree', methods=['POST'])
-def evaluate():
+def evaluateSalad():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     numberOfSalads = data.get("number_of_salads")
+    streetArray = data.get("salad_prices_street_map")
+    result = saladSpree(numberOfSalads, streetArray)
+    logging.info("My result :{}".format(result))
+    return json.dumps(result)
 
+
+def saladSpree(numberOfSalads, streetArray):
     n = len(streetArray[0])
     currentSum = 0
-    # bestStreet = None
-    streetArray = data.get("salad_prices_street_map")
-
     if (n == numberOfSalads):  # When the number of salads required is the number of shops available, one X value will not give a result
         for street in streetArray:
             sumOnStreet = 0
@@ -45,6 +47,4 @@ def evaluate():
                     consecutiveShops = 0
                 if (consecutiveShops == numberOfSalads):
                     currentSum = sumOnStreet
-    result = currentSum
-    logging.info("My result :{}".format(result))
-    return json.dumps(result)
+    return currentSum
