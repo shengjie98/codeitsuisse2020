@@ -1,5 +1,6 @@
 import logging
 import json
+import numpy as np
 
 from flask import request, jsonify
 
@@ -18,30 +19,42 @@ def evaluateSalad():
     logging.info("My result :{}".format(result))
     return json.dumps(result)
 
-
 def saladSpree(numberOfSalads, streetArray):
-    n = len(streetArray[0])
-    currentSum = 0
-    for street in streetArray:
-        lenOfStreet = len(street) #finding out the length of the street
-        noOfX = 0
-        noOfShops = 0
-        sumOnStreet = 0 #This will be the value stored on each street
-        for index in range(len(street)):
-            if (street[index]!="X"):
-                noOfShops += 1
-                sumOnStreet+=int(street[index])
-                if (noOfShops == numberOfSalads): #When the current number of shops matches the no of required salads
-                    if (currentSum==0 or currentSum>sumOnStreet): #Assigning the minimum sum
-                        currentSum = sumOnStreet
-                    if (index-numberOfSalads>=0):
-                        sumOnStreet-=int(street[index-numberOfSalads]) #Minusing the previous element that is no longer needed  
-            else:
-                noOfX+=1
-                sumOnStreet=0
-                if (len(street)-index<numberOfSalads): #Check the number of remaining indexes shops are enough
-                    break #Break out of the current street and move on the other street
-    return currentSum
+    charArr = np.array([np.array(x) for x in streetArray])
+    min_ = 0
+    X = min_
+    for i, street in enumerate(charArr):
+        for j, stall in enumerate(street[:-numberOfSalads]):
+            tmp = charArr[i][j:j+numberOfSalads]
+            sum_ = eval("+".join(charArr[i][j:j+numberOfSalads]))
+            if min_ == 0 or min_ > sum_:
+                min_ = sum_
+                X = min_ + 1
+    return min_
+
+# def saladSpree(numberOfSalads, streetArray):
+#     n = len(streetArray[0])
+#     currentSum = 0
+#     for street in streetArray:
+#         lenOfStreet = len(street) #finding out the length of the street
+#         noOfX = 0
+#         noOfShops = 0
+#         sumOnStreet = 0 #This will be the value stored on each street
+#         for index in range(len(street)):
+#             if (street[index]!="X"):
+#                 noOfShops += 1
+#                 sumOnStreet+=int(street[index])
+#                 if (noOfShops == numberOfSalads): #When the current number of shops matches the no of required salads
+#                     if (currentSum==0 or currentSum>sumOnStreet): #Assigning the minimum sum
+#                         currentSum = sumOnStreet
+#                     if (index-numberOfSalads>=0):
+#                         sumOnStreet-=int(street[index-numberOfSalads]) #Minusing the previous element that is no longer needed  
+#             else:
+#                 noOfX+=1
+#                 sumOnStreet=0
+#                 if (len(street)-index<numberOfSalads): #Check the number of remaining indexes shops are enough
+#                     break #Break out of the current street and move on the other street
+#     return currentSum
 
 # def saladSpree(numberOfSalads, streetArray):
 #     n = len(streetArray[0])
