@@ -44,7 +44,7 @@ def naive_intersection(shapeCoordinates, lineCoordinates):
         # if intersection falls within the endpoints of l1
         if inBetween(intersection, shapeCoordinates[i], shapeCoordinates[i+1]):
             results.append(intersection)
-    return results
+    return [*{results}]
 
 def inBetween(intersection, endpoint1, endpoint2):
     if intersection["x"] < endpoint1["x"] and intersection["x"] < endpoint2["x"]: 
