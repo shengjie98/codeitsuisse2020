@@ -20,22 +20,32 @@ def evaluate_portfolio():
     return jsonify(result)
 
 def getOutput(input_dict):
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["FuturePrcVol"])
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: math.sqrt(input_dict["Portfolio"]["SpotPrcVol"]**2 + x["FuturePrcVol"]**2 + 2 *x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] *x["FuturePrcVol"]))
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"] / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
-    bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"] / x["Notional"] * input_dict["Portfolio"]["Value"] )
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
-    # bestIndex = max(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * x["FuturePrcVol"] )
-    # print(bestIndex)
-    # print(input_dict["IndexFutures"])
-    output = {"HedgePositionName": bestIndex["Name"]}
-    optimalHedgeRatio = bestIndex["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / bestIndex["FuturePrcVol"]
-    num = optimalHedgeRatio / bestIndex["Notional"] * input_dict["Portfolio"]["Value"] / bestIndex["IndexFuturePrice"]
-    output["OptimalHedgeRatio"] = round_num(optimalHedgeRatio, 3)
-    output["NumFuturesContract"] = round_num(num)
+    x_min = input_dict[0]
+    x_min_HR = x_min["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x_min["FuturePrcVol"]
+    x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
+    for x in input_dict[1:]:
+        new_HR =  x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"]
+        if new_HR < x_min_HR:
+            x_min = x
+            x_min_HR = new_HR
+            x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
+            # change min
+        elif new_HR == x_min_HR:
+            # check vol
+            if x["FuturePrcVol"] < x_min["FuturePrcVol"]:
+                x_min = x
+                x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
+            elif x["FuturePrcVol"] == x_min["FuturePrcVol"]:
+                #check num
+                new_x_num = x_min_HR / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"]
+                if new_x_num < x_min_num:
+                    x_min = x
+                    x_min_num = new_x_num
+    output = {
+        "HedgePositionName" : x_min["Name"], 
+        "OptimalHedgeRatio" : x_min_HR, 
+        "NumFuturesContract": x_min_num
+    }
     return output
 
 # def round_num(number, n = None):
