@@ -5,5 +5,5 @@ import codeitsuisse.routes.revisit
 import codeitsuisse.routes.encrypt
 import codeitsuisse.routes.square
 import codeitsuisse.routes.gene
-import codeitsuisse.routes.inventory
+import codeitsuisse.routes.clean_floor
 

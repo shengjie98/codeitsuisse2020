@@ -8,7 +8,7 @@ from codeitsuisse import app;
 logger = logging.getLogger(__name__)
 
 @app.route('/clean_floor', methods=['POST'])
-def evaluate_inventory():
+def evaluate_clean():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     tests = data.get("tests")
@@ -37,9 +37,3 @@ def clean_floor(floors):
             floors[pos] = 1
             total += 1
     return steps
-
-# test comment
-    
-
-
-
