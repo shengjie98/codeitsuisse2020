@@ -25,7 +25,7 @@ def evaluateGene():
         ]
     }
     logging.info("My result :{}".format(result))
-    return json.dumps(result);
+    return json.dumps(jsonify(result));
 
 def rearrange(gene):
     numOfGenomes = {x: gene.count(x) for x in {*[c for c in gene]}}
