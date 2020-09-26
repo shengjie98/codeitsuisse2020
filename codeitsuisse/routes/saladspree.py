@@ -1,6 +1,5 @@
 import logging
 import json
-import numpy as np
 
 from flask import request, jsonify
 
