@@ -19,6 +19,29 @@ def evaluateSalad():
     logging.info("My result :{}".format(result))
     return jsonify(result)
 
+def saladSpree(numberOfSalads, streetArray):
+    min_ = 0
+    strlen = len(streetArray[0])
+    for i, street in enumerate(streetArray):
+        j = 0
+        while (j) < strlen-numberOfSalads:
+            tmp = street[j:j+numberOfSalads]
+                
+            if "X" in tmp:
+                d = tmp.index("X")
+                j += d + 1
+                continue
+
+            else: 
+                sum_ = eval("+".join(street[j:j+numberOfSalads]))
+                if min_ == 0 or min_ > sum_:
+                    min_ = sum_
+                j += 1
+
+            # print(street[j:j+numberOfSalads])
+        
+    return min_
+
 # def saladSpree(numberOfSalads, streetArray):
 #     charArr = np.array([np.array(x) for x in streetArray])
 #     min_ = 0
@@ -56,20 +79,20 @@ def evaluateSalad():
 #                     break #Break out of the current street and move on the other street
 #     return currentSum
 
-def saladSpree(numberOfSalads, streetArray):
-    n = len(streetArray[0])
-    currentSum = 0
-    for street in streetArray:
-        i=0
-        while i < n-numberOfSalads:
-            if all([x.isnumeric() for x in street[i:i+numberOfSalads]]):
-                sum_ = sum([int(x) for x in street[i:i+numberOfSalads]])
-                i+=1
-                if not currentSum:
-                    currentSum = sum_
-                else :
-                    if sum_ < currentSum:
-                        currentSum = sum_
-            else:
-                i += "".join(street[i:i+numberOfSalads]).rindex("X")
-    return currentSum
+# def saladSpree(numberOfSalads, streetArray):
+#     n = len(streetArray[0])
+#     currentSum = 0
+#     for street in streetArray:
+#         i=0
+#         while i < n-numberOfSalads:
+#             if all([x.isnumeric() for x in street[i:i+numberOfSalads]]):
+#                 sum_ = sum([int(x) for x in street[i:i+numberOfSalads]])
+#                 i+=1
+#                 if not currentSum:
+#                     currentSum = sum_
+#                 else :
+#                     if sum_ < currentSum:
+#                         currentSum = sum_
+#             else:
+#                 i += "".join(street[i:i+numberOfSalads]).rindex("X")
+#     return currentSum
