@@ -20,11 +20,12 @@ def evaluate_portfolio():
     return jsonify(result)
 
 def getOutput(input_dict):
-    bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
+    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["FuturePrcVol"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: math.sqrt(input_dict["Portfolio"]["SpotPrcVol"]**2 + x["FuturePrcVol"]**2 + 2 *x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] *x["FuturePrcVol"]))
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"] / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
+    bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"] / x["Notional"] * input_dict["Portfolio"]["Value"] )
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
     # bestIndex = max(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * x["FuturePrcVol"] )
@@ -40,14 +41,14 @@ def getOutput(input_dict):
 # def round_num(number, n = None):
 #     return round(number, n)
 
-# def round_num(number, n = None):
-#     if n:
-#         return math.ceil(number * (10**n))/(10**n)
-#     else: 
-#         return math.ceil(number)
-
 def round_num(number, n = None):
     if n:
-        return round(round(number, n+1), n)
+        return math.ceil(number * (10**n))/(10**n)
     else: 
-        return round(round(number, 1))
+        return math.ceil(number)
+
+# def round_num(number, n = None):
+#     if n:
+#         return round(round(number, n+1), n)
+#     else: 
+#         return round(round(number, 1))
