@@ -20,13 +20,13 @@ def evaluate_portfolio():
     return jsonify(outputs)
 
 def getOutput(input_dict):
-    # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
+    bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["FuturePrcVol"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: math.sqrt(input_dict["Portfolio"]["SpotPrcVol"]**2 + x["FuturePrcVol"]**2 + 2 *x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] *x["FuturePrcVol"]))
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"] / x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["Notional"] * input_dict["Portfolio"]["Value"] / x["IndexFuturePrice"] )
-    bestIndex = max(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
+    # bestIndex = max(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"])
     # bestIndex = min(input_dict["IndexFutures"], key = lambda x: x["CoRelationCoefficient"] * x["FuturePrcVol"] )
     # print(bestIndex)
     # print(input_dict["IndexFutures"])
