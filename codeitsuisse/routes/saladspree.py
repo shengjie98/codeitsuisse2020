@@ -30,7 +30,7 @@ def saladSpree(numberOfSalads, streetArray):
                     sumOnStreet += int(i)
                 except:
                     break
-                    print("This street does not have enough shops")
+                    # print("This street does not have enough shops")
                 if (i == n):
                     if (currentSum == 0 or sumOnStreet <= currentSum):
                         currentSum = sumOnStreet
