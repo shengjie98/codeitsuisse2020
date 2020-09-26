@@ -20,10 +20,10 @@ def evaluate_portfolio():
     return jsonify(result)
 
 def getOutput(input_dict):
-    x_min = input_dict[0]
+    x_min = input_dict["IndexFutures"][0]
     x_min_HR = x_min["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x_min["FuturePrcVol"]
     x_min_num = x_min_HR / x_min["Notional"] * input_dict["Portfolio"]["Value"] / x_min["IndexFuturePrice"]
-    for x in input_dict[1:]:
+    for x in input_dict["IndexFutures"][1:]:
         new_HR =  x["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x["FuturePrcVol"]
         if new_HR < x_min_HR:
             x_min = x
@@ -43,10 +43,12 @@ def getOutput(input_dict):
                     x_min_num = new_x_num
     output = {
         "HedgePositionName" : x_min["Name"], 
-        "OptimalHedgeRatio" : x_min_HR, 
-        "NumFuturesContract": x_min_num
+        "OptimalHedgeRatio" : round_num(x_min_HR, 3), 
+        "NumFuturesContract": round_num(x_min_num)
     }
     return output
+
+
 
 # def round_num(number, n = None):
 #     return round(number, n)
