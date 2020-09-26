@@ -32,44 +32,44 @@ def evaluateSalad():
 #                 X = min_ + 1
 #     return min_
 
-def saladSpree(numberOfSalads, streetArray):
-    n = len(streetArray[0])
-    currentSum = 0
-    for street in streetArray:
-        lenOfStreet = len(street) #finding out the length of the street
-        noOfX = 0
-        noOfShops = 0
-        sumOnStreet = 0 #This will be the value stored on each street
-        for index in range(len(street)):
-            if (street[index]!="X"):
-                noOfShops += 1
-                sumOnStreet+=int(street[index])
-                if (noOfShops == numberOfSalads): #When the current number of shops matches the no of required salads
-                    if (currentSum==0 or currentSum>sumOnStreet): #Assigning the minimum sum
-                        currentSum = sumOnStreet
-                    if (index-numberOfSalads>=0):
-                        sumOnStreet-=int(street[index-numberOfSalads]) #Minusing the previous element that is no longer needed  
-            else:
-                noOfX+=1
-                sumOnStreet=0
-                if (len(street)-index<numberOfSalads): #Check the number of remaining indexes shops are enough
-                    break #Break out of the current street and move on the other street
-    return currentSum
-
 # def saladSpree(numberOfSalads, streetArray):
 #     n = len(streetArray[0])
 #     currentSum = 0
 #     for street in streetArray:
-#         i=0
-#         while i < n-numberOfSalads:
-#             if all([x.isnumeric() for x in street[i:i+numberOfSalads]]):
-#                 sum_ = sum([int(x) for x in street[i:i+numberOfSalads]])
-#                 i+=1
-#                 if not currentSum:
-#                     currentSum = sum_
-#                 else :
-#                     if sum_ < currentSum:
-#                         currentSum = sum_
+#         lenOfStreet = len(street) #finding out the length of the street
+#         noOfX = 0
+#         noOfShops = 0
+#         sumOnStreet = 0 #This will be the value stored on each street
+#         for index in range(len(street)):
+#             if (street[index]!="X"):
+#                 noOfShops += 1
+#                 sumOnStreet+=int(street[index])
+#                 if (noOfShops == numberOfSalads): #When the current number of shops matches the no of required salads
+#                     if (currentSum==0 or currentSum>sumOnStreet): #Assigning the minimum sum
+#                         currentSum = sumOnStreet
+#                     if (index-numberOfSalads>=0):
+#                         sumOnStreet-=int(street[index-numberOfSalads]) #Minusing the previous element that is no longer needed  
 #             else:
-#                 i += "".join(street[i:i+numberOfSalads]).rindex("X")
+#                 noOfX+=1
+#                 sumOnStreet=0
+#                 if (len(street)-index<numberOfSalads): #Check the number of remaining indexes shops are enough
+#                     break #Break out of the current street and move on the other street
 #     return currentSum
+
+def saladSpree(numberOfSalads, streetArray):
+    n = len(streetArray[0])
+    currentSum = 0
+    for street in streetArray:
+        i=0
+        while i < n-numberOfSalads:
+            if all([x.isnumeric() for x in street[i:i+numberOfSalads]]):
+                sum_ = sum([int(x) for x in street[i:i+numberOfSalads]])
+                i+=1
+                if not currentSum:
+                    currentSum = sum_
+                else :
+                    if sum_ < currentSum:
+                        currentSum = sum_
+            else:
+                i += "".join(street[i:i+numberOfSalads]).rindex("X")
+    return currentSum
