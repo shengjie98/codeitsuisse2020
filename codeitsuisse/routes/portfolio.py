@@ -9,7 +9,7 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-@app.route('/optimized-portfolio', methods=['POST'])
+@app.route('/optimizedportfolio', methods=['POST'])
 def evaluate_portfolio():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
@@ -40,8 +40,14 @@ def getOutput(input_dict):
 # def round_num(number, n = None):
 #     return round(number, n)
 
+# def round_num(number, n = None):
+#     if n:
+#         return math.ceil(number * (10**n))/(10**n)
+#     else: 
+#         return math.ceil(number)
+
 def round_num(number, n = None):
     if n:
-        return math.ceil(number * (10**n))/(10**n)
+        return round(round(number, n+1), n)
     else: 
-        return math.ceil(number)
+        return round(round(number, 1))
