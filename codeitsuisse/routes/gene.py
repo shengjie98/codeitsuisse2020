@@ -12,11 +12,11 @@ logger = logging.getLogger(__name__)
 def evaluateGene():
     data = request.get_json();
     logging.info("data sent for evaluation {}".format(data))
-    id_ = data.get("id");
+    id_ = data.get("runId");
     list_ = data.get("list");
 
     result = {
-        "id": id_,
+        "runId": id_,
         "list": [
             {
                 "id": x["id"],
