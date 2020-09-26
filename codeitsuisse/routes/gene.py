@@ -55,8 +55,7 @@ def rearrange(gene):
                 remainder["A"] -= 2
             result.append(x)
     result.append("A" * remainder["A"])
-    "".join(result)
+    result = "".join(result)
     return result
-
 
 
