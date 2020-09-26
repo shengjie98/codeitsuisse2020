@@ -13,3 +13,4 @@ import codeitsuisse.routes.contact
 import codeitsuisse.routes.baby
 import codeitsuisse.routes.fruitbasket
 import codeitsuisse.routes.cluster
+import codeitsuisse.routes.inventory
