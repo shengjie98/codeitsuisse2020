@@ -9,7 +9,7 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-@app.route('/clean_floor', methods=['POST'])
+@app.route('/optimizedportfolio', methods=['POST'])
 def evaluate_portfolio():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
