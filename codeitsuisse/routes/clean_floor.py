@@ -15,7 +15,7 @@ def evaluate_clean():
     result = {case_id:clean_floor(case.get("floor")) for case_id, case in tests.items()}
     result = {"answers": result}
     logging.info("My result :{}".format(result))
-    return json.dumps(result)
+    return jsonify(result)
 
 def clean_floor(floors):
     pos = 0
