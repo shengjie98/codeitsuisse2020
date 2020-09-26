@@ -12,6 +12,10 @@ def evaluateFruitBasket():
     data = request.get_data();
     logging.info("data sent for evaluation {}".format(data))
     print(type(data))
+    print(data)
+    data = data.decode()
+    print(type(data))
+    print(data)
     
     # splitString = data.split(",")
     # noBanana = splitString[0]
