@@ -17,7 +17,7 @@ def evaluateSalad():
     streetArray = data.get("salad_prices_street_map")
     result = saladSpree(numberOfSalads, streetArray)
     logging.info("My result :{}".format(result))
-    return json.dumps(result)
+    return jsonify(result)
 
 def saladSpree(numberOfSalads, streetArray):
     charArr = np.array([np.array(x) for x in streetArray])
