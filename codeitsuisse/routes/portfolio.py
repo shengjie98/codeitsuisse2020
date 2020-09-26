@@ -42,6 +42,11 @@ def compare(x1, x2, input_dict):
     HR2 = round_num(x2["CoRelationCoefficient"] * input_dict["Portfolio"]["SpotPrcVol"] / x2["FuturePrcVol"], 3)
     num2 = round_num(HR2 / x2["Notional"] * input_dict["Portfolio"]["Value"] / x2["IndexFuturePrice"])
 
+    if vol1==vol2 and HR1==HR2:
+        if num1 <= num2:
+            return x1
+        else:
+            return x2
     if vol1<=vol2 and HR1<=HR2:
         return x1
     elif vol2<=vol1 and HR2<=HR1:
