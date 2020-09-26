@@ -24,7 +24,7 @@ def evaluate_inventory():
         output["searchResult"] = [i[1] for i in distances[:10]]
         outputs.append(output)
     logging.info("My result :{}".format(output))
-    return jsonify(output)
+    return jsonify(outputs)
 
 import numpy as np
 
