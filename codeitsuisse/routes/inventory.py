@@ -23,14 +23,16 @@ def evaluate_inventory():
         distances.sort()
         output["searchResult"] = [i[1] for i in distances[:10]]
         outputs.append(output)
-    logging.info("My result :{}".format(output))
+    logging.info("My result :{}".format(outputs))
     return jsonify(outputs)
 
 import numpy as np
 
 def lev_mat(item, search):
-    item = item.upper()
-    search = search.upper()
+    it = str(item)
+    ser = str(search)
+    item = item.lower()
+    search = search.lower()
     mat = np.zeros((len(item)+1, len(search)+1))
     mat[0] = [i for i in range(len(mat[0]))]
     mat[:, 0] = [i for i in range(len(mat[0:, ]))]
@@ -50,28 +52,28 @@ def lev_mat(item, search):
             choice = mat[i+1][j+1]
             if j+1 == len(search):
                 choice = rem
-                moves += '-' + item[i-1]
+                moves += '-' + it[i-1]
                 i += 1
             elif i+1 == len(item):
                 choice = add
-                moves += '+' + search[j-1]
+                moves += '+' + ser[j-1]
                 j += 1
             else:
                 min_path = min(choice, add, rem)
                 if min_path == choice:
-                    moves += search[j-1]
+                    moves += ser[j-1]
                     i += 1
                     j += 1
                 elif add<=rem:
                     choice = add
-                    moves += '+' + search[j-1]
+                    moves += '+' + ser[j-1]
                     j += 1
                 else:
                     choice = rem
-                    moves += '-' + item[i-1]
+                    moves += '-' + it[i-1]
                     i += 1
         else:
-            moves += search[j-1]
+            moves += ser[j-1]
             i += 1
             j += 1
     return mat[i-1][j-1], moves
