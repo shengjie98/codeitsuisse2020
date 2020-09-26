@@ -47,21 +47,21 @@ def contact(infected, origin, cluster):
                 dists[g][h] = get_dist(base, genes[h])
                 dists[h][g] = dists[g][h]
     
-    paths = [[0]]
+    paths = [[[0, '']]]
     visited = {0:0}
     complete_paths = []
-
     # treat paths as a stack
     while len(paths) > 0:
         added = 0
         path = paths[0]
         paths = paths[1:]
-        gene_no = path[-1]
+        gene_no = path[-1][0]
         min_val = dists[gene_no].min()
+        path[-1][1] = '' if min_val<2 else '*'
         for i in range(len(genes)):
             if (dists[gene_no][i] == min_val) and (visited.get(i) is None):
                 dists[gene_no][i] += 1
-                paths.append(path + [i])
+                paths.append(path + [[i, '']])
                 visited[i] = 0
                 added += 1
         
@@ -73,7 +73,7 @@ def contact(infected, origin, cluster):
         path = complete_paths[p]
         path_str = ""
         while len(path)>0:
-            i = path[0]
+            i = path[0][0]
             if i>1:
                 name = cluster[i-2]["name"]
             elif i==1:
@@ -81,15 +81,9 @@ def contact(infected, origin, cluster):
             else:
                 name = infected["name"]
             
-            if len(path)>2:
-                name += "* -> "
-            elif len(path)>1:
-                name += " -> "
+            if len(path)>1:
+                name += path[0][1] + " -> "
             path_str += name
             path = path[1:]
         complete_paths[p] = path_str
-        
     return complete_paths
-
-
-
