@@ -15,7 +15,7 @@ def evaluateSalad():
     # logging.info("data sent for evaluation {}".format(data))
     numberOfSalads = data.get("number_of_salads")
     streetArray = data.get("salad_prices_street_map")
-    result = saladSpree(numberOfSalads, streetArray)
+    result = {"result" : saladSpree(numberOfSalads, streetArray)}
     # logging.info("My result :{}".format(result))
     return jsonify(result)
 
