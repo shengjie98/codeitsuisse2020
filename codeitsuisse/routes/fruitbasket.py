@@ -14,7 +14,8 @@ def evaluateFruitBasket():
     noBanana = data.get("maBanana");
     noMelon = data.get("maWatermelon")
     noApple = data.get("maApple")
-    result = noApple*10+noBanana*10+noMelon*10
+    estimate = str(noApple*10+noBanana*10+noMelon*10)
+    result = estimate
     logging.info("My result :{}".format(result))
     return json.dumps(result);
 
