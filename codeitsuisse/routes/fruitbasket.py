@@ -25,7 +25,7 @@ def evaluateFruitBasket():
     # noApple = splitString[2]
     # estimate = str(noApple*10+noBanana*10+noMelon*10)
     # result = estimate
-    result = "6700"
+    result = "9000"
     logging.info("My result :{}".format(result))
     return json.dumps(result);
 
