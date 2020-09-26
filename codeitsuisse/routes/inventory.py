@@ -37,6 +37,8 @@ def clean_floor(floors):
             floors[pos] = 1
             total += 1
     return steps
+
+# test comment
     
 
 
