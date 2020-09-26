@@ -57,11 +57,11 @@ def compare(x1, x2, input_dict):
         return x2
 
 
-# def round_num(number, n = None):
-#     return round(number, n)
-
 def round_num(number, n = None):
-    if n:
-        return math.ceil(number * (10**n))/(10**n)
-    else: 
-        return math.ceil(number)
+    return round(number, n)
+
+# def round_num(number, n = None):
+#     if n:
+#         return math.ceil(number * (10**n))/(10**n)
+#     else: 
+#         return math.ceil(number)
