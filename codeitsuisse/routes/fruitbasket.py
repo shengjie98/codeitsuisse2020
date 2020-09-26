@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 @app.route('/fruitbasket', methods=['POST'])
 def evaluateFruitBasket():
-    data = request.get_json();
+    data = request.get_data();
     logging.info("data sent for evaluation {}".format(data))
     noBanana = data.get("maBanana");
     noMelon = data.get("maWatermelon")
