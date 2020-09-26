@@ -24,13 +24,19 @@ def baby(numberOfBooks, numberOfDays, books, days):
     books.sort()
     days.sort()
     sets = [] # where sets[i] will the set of weights that has i books or less
-    weights = set()
-    weights.add(tuple(0 for _ in range(numberOfDays + 1)))
+    weights = []
+    weights.append(tuple(0 for _ in range(numberOfDays + 1)))
     sets.append(weights)
-    print(weights)
+    # print(weights)
     for i in range(numberOfBooks):
-        new_set = { tuple([bag_weight if k!=j else bag_weight + books[i] for k, bag_weight in enumerate(weight[:-1])] + [weight[-1] + 1]) for j in range(numberOfDays) for weight in sets[i]}
-        new_set = {*filter(lambda tupleOfWeights: checkCapacity(tupleOfWeights, days), new_set)}
+        new_set = []
+        for weight in sets[i]:
+            for j in range(numberOfDays):
+                if weight[j] + books[i] <= days[j]:
+                    new_weight = [*weight]
+                    new_weight[j] += books[i]
+                    new_weight[-1] += 1
+                    new_set.append(tuple(new_weight))
         sets.append(new_set)
         # print(new_set)
     sets = [*filter(lambda x: x, sets)]
