@@ -15,22 +15,22 @@ def evaluateSalad():
     logging.info("data sent for evaluation {}".format(data))
     numberOfSalads = data.get("number_of_salads")
     streetArray = data.get("salad_prices_street_map")
-    result = saladSpree(numberOfSalads, streetArray)
+    result = {"result" : saladSpree(numberOfSalads, streetArray)}
     logging.info("My result :{}".format(result))
-    return json.dumps(result)
+    return jsonify(result)
 
-def saladSpree(numberOfSalads, streetArray):
-    charArr = np.array([np.array(x) for x in streetArray])
-    min_ = 0
-    X = min_
-    for i, street in enumerate(charArr):
-        for j, stall in enumerate(street[:-numberOfSalads]):
-            tmp = charArr[i][j:j+numberOfSalads]
-            sum_ = eval("+".join(charArr[i][j:j+numberOfSalads]))
-            if min_ == 0 or min_ > sum_:
-                min_ = sum_
-                X = min_ + 1
-    return min_
+# def saladSpree(numberOfSalads, streetArray):
+#     charArr = np.array([np.array(x) for x in streetArray])
+#     min_ = 0
+#     X = min_
+#     for i, street in enumerate(charArr):
+#         for j, stall in enumerate(street[:-numberOfSalads]):
+#             tmp = charArr[i][j:j+numberOfSalads]
+#             sum_ = eval("+".join(charArr[i][j:j+numberOfSalads]))
+#             if min_ == 0 or min_ > sum_:
+#                 min_ = sum_
+#                 X = min_ + 1
+#     return min_
 
 # def saladSpree(numberOfSalads, streetArray):
 #     n = len(streetArray[0])
@@ -56,20 +56,20 @@ def saladSpree(numberOfSalads, streetArray):
 #                     break #Break out of the current street and move on the other street
 #     return currentSum
 
-# def saladSpree(numberOfSalads, streetArray):
-#     n = len(streetArray[0])
-#     currentSum = 0
-#     for street in streetArray:
-#         i=0
-#         while i < n-numberOfSalads:
-#             if all([x.isnumeric() for x in street[i:i+numberOfSalads]]):
-#                 sum_ = sum([int(x) for x in street[i:i+numberOfSalads]])
-#                 i+=1
-#                 if not currentSum:
-#                     currentSum = sum_
-#                 else :
-#                     if sum_ < currentSum:
-#                         currentSum = sum_
-#             else:
-#                 i += "".join(street[i:i+numberOfSalads]).rindex("X")
-#     return currentSum
+def saladSpree(numberOfSalads, streetArray):
+    n = len(streetArray[0])
+    currentSum = 0
+    for street in streetArray:
+        i=0
+        while i < n-numberOfSalads:
+            if all([x.isnumeric() for x in street[i:i+numberOfSalads]]):
+                sum_ = sum([int(x) for x in street[i:i+numberOfSalads]])
+                i+=1
+                if not currentSum:
+                    currentSum = sum_
+                else :
+                    if sum_ < currentSum:
+                        currentSum = sum_
+            else:
+                i += "".join(street[i:i+numberOfSalads]).rindex("X")
+    return currentSum
