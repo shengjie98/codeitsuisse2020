@@ -15,3 +15,5 @@ def evaluateXerox():
     # result = inputValue * inputValue
     logging.info("My result :{}".format(result))
     return json.dumps({ "document-id": [ { "from": 1, "to": 100, "copier": "M1" }, { "from": 101, "to": 200, "copier": "M2" } ] });
+
+# def printAllocation():
