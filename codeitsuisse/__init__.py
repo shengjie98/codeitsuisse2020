@@ -7,7 +7,7 @@ import codeitsuisse.routes.encrypt
 import codeitsuisse.routes.square
 import codeitsuisse.routes.yy
 import codeitsuisse.routes.social
-import codeitsuisse.routes.tick
+# import codeitsuisse.routes.tick
 import codeitsuisse.routes.portfolio
 import codeitsuisse.routes.gene
 import codeitsuisse.routes.clean_floor
