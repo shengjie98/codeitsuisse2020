@@ -26,6 +26,8 @@ def evaluate_scribe():
     logging.info("My result :{}".format(results))
     return jsonify(results)
 
+# i want internship plsplsplsplsplsplspls
+
 
 def decipher(shift, msg):
     shift = shift%26
