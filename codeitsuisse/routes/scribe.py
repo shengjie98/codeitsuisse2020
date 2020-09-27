@@ -11,7 +11,7 @@ from codeitsuisse import app;
 
 logger = logging.getLogger(__name__)
 
-@app.route('/slsm', methods=['POST'])
+@app.route('/bored-scribe', methods=['POST'])
 def evaluate_scribe():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
