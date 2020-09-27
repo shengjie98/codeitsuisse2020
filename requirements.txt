@@ -27,15 +27,7 @@ virtualenv-clone==0.2.6
 Werkzeug==0.14.1
 
 
-blas==1.0
-intel-openmp==2020.2-254
-mkl==2020.2-256
-mkl-service==2.3.0
-mkl_fft==1.2.0
-mkl_random==1.1.1
+
 numpy==1.19.1
 numpy-base==1.19.1
 pandas==1.1.1
-python-dateutil==2.8.1
-pytz==2020.1
-six==1.15.0
