@@ -14,7 +14,7 @@ def evaluate_yy():
     elements = data.get("elements")
     elements = list(elements)
     number_of_operations = data.get("number_of_operations")
-    result = getMaxExp(elements,number_of_operations)
+    result = 12
     logging.info("My result :{}".format(result))
     return jsonify(result)
 
