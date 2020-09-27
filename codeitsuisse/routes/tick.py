@@ -23,8 +23,8 @@ def get_tick(csvStr):
     df = pd.read_csv(data)
     T = len(df) -1
     # df = pd.DataFrame([x.split(';') for x in csvStr.split('\n')])
-    cT = df["Close"].expanding(100).mean()
-    zT = df["Close"].expanding(100).std()
+    cT = df["Close"].rolling(100).mean()
+    zT = df["Close"].rolling(100).std()
     ans = (cT + zT).get(T)
     logging.info("df: ".format(str(T)))
     return ans
