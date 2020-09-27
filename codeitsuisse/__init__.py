@@ -1,5 +1,6 @@
 from flask import Flask
 app = Flask(__name__)
+import codeitsuisse.routes.maze
 import codeitsuisse.routes.saladspree
 import codeitsuisse.routes.revisit
 import codeitsuisse.routes.encrypt
@@ -14,4 +15,3 @@ import codeitsuisse.routes.baby
 import codeitsuisse.routes.fruitbasket
 import codeitsuisse.routes.cluster
 import codeitsuisse.routes.inventory
-import codeitsuisse.routes.maze
