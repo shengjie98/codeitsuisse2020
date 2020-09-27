@@ -160,8 +160,11 @@ def scribe(msg):
     count = 0
     while msg[0] != enc[0] and count<26:
         pals = palins(msg)
-        longest = sorted(pals[0])[-1]
-        longest = msg[longest[1]:longest[2]+1]
+        if len(pals[0]) > 0:
+            longest = sorted(pals[0])[-1]
+            longest = msg[longest[1]:longest[2]+1]
+        else:
+            break
         shift = sum([ord(i) for i in longest]) + len(pals[0])
         if shift == 0:
             break
