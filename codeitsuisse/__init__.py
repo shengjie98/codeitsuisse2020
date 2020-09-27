@@ -16,8 +16,5 @@ import codeitsuisse.routes.baby
 import codeitsuisse.routes.fruitbasket
 import codeitsuisse.routes.cluster
 import codeitsuisse.routes.inventory
-<<<<<<< HEAD
 import codeitsuisse.routes.scribe
-=======
 import codeitsuisse.routes.xerox
->>>>>>> 88c1371436b39fde052a79c88777b0745f59bf66
