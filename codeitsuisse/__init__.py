@@ -18,3 +18,5 @@ import codeitsuisse.routes.cluster
 import codeitsuisse.routes.inventory
 import codeitsuisse.routes.xerox
 import codeitsuisse.routes.bucketfill
+import codeitsuisse.routes.scribe
+
