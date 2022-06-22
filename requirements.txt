@@ -28,5 +28,5 @@ Werkzeug==0.14.1
 
 
 
-numpy==1.19.1
+numpy==1.22.0
 pandas==1.1.1
